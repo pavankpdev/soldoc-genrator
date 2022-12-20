@@ -25,9 +25,10 @@ export default function handler(
   var output = JSON.parse(solc.compile(JSON.stringify(input)));
 
   let abi: any = []
+  let name = ''
   for (var contractName in output.contracts['test.sol']) {
     abi = output.contracts['test.sol'][contractName].abi;
+    name = contractName
   }
-
-  res.status(200).json({ data: abi })
+  res.status(200).json({ data: abi, name})
 }
