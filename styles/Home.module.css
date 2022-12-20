@@ -69,45 +69,8 @@
     color: white;
     font-size: 1rem;
     font-weight: 500;
-    cursor: pointer;
 }
 
-/*.table {*/
-/*    display: flex;*/
-/*    flex-direction: column;*/
-/*    align-items: center;*/
-/*    justify-content: center;*/
-/*    gap: 1rem;*/
-/*    padding: 1rem;*/
-/*    border-radius: 5px;*/
-/*    border: 1px solid white;*/
-/*    color: white;*/
-/*    font-size: 1rem;*/
-/*    font-weight: 500;*/
-/*    cursor: pointer;*/
-/*    width: 100%;*/
-/*}*/
-/*.table > thead {*/
-/*    width: 100%;*/
-/*}*/
-
-/*.table > tbody {*/
-/*    width: 100%;*/
-/*}*/
-
-/*.table > thead > tr > th {*/
-/*    font-size: 1.2rem;*/
-/*    font-weight: 700;*/
-/*    color: #CBD5E0;*/
-/*    border: 1px solid white;*/
-/*}*/
-
-/*.table > tbody > tr > td {*/
-/*    font-size: 1rem;*/
-/*    font-weight: 500;*/
-/*    color: white;*/
-/*    border: 1px solid white;*/
-/*}*/
 .table {
     width: 100%;
     border-collapse: collapse;

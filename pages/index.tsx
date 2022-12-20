@@ -4,12 +4,17 @@ import {useState} from "react";
 // @ts-ignore
 import solc from "solc";
 import {sampleAbi} from "../sampleAbi";
+import Editor from "../components/Editor";
 
 export default function Home() {
-  const [solContents, setSolContents] = useState<any>('')
+  const [solContents, setSolContents] = useState('')
   const [abi, setAbi] = useState<any[]>([])
     const [cName, setCname] = useState('')
 
+    const handleSolContents = (e: any) => {
+      e.preventDefault()
+       setSolContents(e.target.value)
+    }
     const handleClick = async () => {
       try {
           const res = await fetch('/api/compile', {
@@ -28,7 +33,11 @@ export default function Home() {
         setAbi(sampleAbi)
         setCname('Ballot')
     }
-    const startOver = () => setAbi([]);
+    const startOver = () => {
+        setAbi([]);
+        setCname('');
+        setSolContents('');
+    }
 
     const ShowStats = () => {
       return <>
@@ -74,56 +83,6 @@ export default function Home() {
       </>
     }
 
-    const ShowEditor = () => {
-      return <>
-          <div className={styles.headings}>
-              <h1 className={styles.h1}>
-                  Welcome to solidity document generator
-              </h1>
-              <h4 className={styles.h4}>
-                  This app will use the &apos;NatSpec&apos; comments in your solidity files to generate a documentation website.
-              </h4>
-              <h6 className={styles.h6}>Haven&apos;t decided on the name, so we&apos;ll call it SolDoc Generator 😅</h6>
-          </div>
-          <div className={styles.headings}>
-              <textarea
-                  className={styles.textarea}
-                  placeholder={'Paste your solidity code here'}
-                  rows={10}
-                  cols={80}
-                  onChange={(e) => setSolContents(e.target.value)}
-                  value={solContents}
-              >
-
-              </textarea>
-              <div
-                style={{
-                    display: 'flex',
-                    gap: '10px',
-                    alignItems: 'center'
-                }}
-              >
-                  <button
-                      className={styles.button}
-                      onClick={handleClick}
-                  >
-                      Get Documentation
-                  </button>
-                  <button
-                      className={styles.button}
-                      onClick={laodSampleContract}
-                  >
-                      Load sample contract
-                  </button>
-              </div>
-              <small>
-                  Note: This app is still in development, so it can display only certain amount data for now.
-              </small>
-          </div>
-      </>
-    }
-
-
     return (
     <>
       <Head>
@@ -133,7 +92,7 @@ export default function Home() {
       </Head>
       <main className={styles.main}>
           {
-                abi.length > 0 ? <ShowStats /> : <ShowEditor />
+                abi.length > 0 ? <ShowStats /> : <Editor handleClick={handleClick} handleSolContents={handleSolContents} solContents={solContents} laodSampleContract={laodSampleContract} />
           }
       </main>
     </>
