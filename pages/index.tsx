@@ -8,18 +8,25 @@ import {sampleAbi} from "../sampleAbi";
 export default function Home() {
   const [solContents, setSolContents] = useState<any>('')
   const [abi, setAbi] = useState<any[]>([])
+    const [cName, setCname] = useState('')
 
     const handleClick = async () => {
-      const res = await fetch('/api/compile', {
-            method: 'POST',
-            body: JSON.stringify({solContents}),
-        })
+      try {
+          const res = await fetch('/api/compile', {
+              method: 'POST',
+              body: JSON.stringify({solContents}),
+          })
 
-      const compiled = await res.json()
-        setAbi(compiled.data)
+          const compiled = await res.json()
+          setAbi(compiled.data)
+          setCname(compiled.name)
+      } catch (e) {
+          alert('Seems like an invalid code, please paste solidity code')
+      }
     }
     const laodSampleContract = () => {
         setAbi(sampleAbi)
+        setCname('Ballot')
     }
     const startOver = () => setAbi([]);
 
@@ -35,6 +42,7 @@ export default function Home() {
               <h6 className={styles.h6}>Haven&apos;t decided on the name, so we&apos;ll call it SolDoc Generator 😅</h6>
           </div>
           <div className={styles.headings}>
+              <h4 className={styles.h4}>Contract: {cName}</h4>
               <table className={styles.table}>
                   <tr>
                       <th className={styles.th}>slno</th>
